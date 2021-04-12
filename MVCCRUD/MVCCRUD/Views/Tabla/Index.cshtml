@@ -6,6 +6,11 @@
 <h2>@ViewBag.Title</h2>
 
 
+
+
+
+
+
 <div class="row" style="text-align:right; padding:5px;">
     <a href="~/Tabla/Nuevo" class="btn btn-primary">Nuevo</a>
 </div>
@@ -17,6 +22,7 @@
                 <th>Nombre</th>
                 <th>Correo</th>
                 <th>Fecha de nacimiento</th>
+                <th></th>
             </tr>
             @foreach(var oElemento in Model)
             {
@@ -25,9 +31,38 @@
                     <td>@oElemento.Nombre</td>
                     <td>@oElemento.Correo</td>
                     <td>@oElemento.Fecha_Nacimiento</td>
+                    <td>
+                        <a class="btn btn-default" href="~/Tabla/Editar/@oElemento.Id">Editar</a>
+                        <a data-toggle="modal" href="#myModal" class="btn btn-danger">Eliminar</a> 
+                        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Ventana de confirmación</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        ¿Está seguro que desea eliminar el sigiente elemento?<br /><br />
+                                        <b>Id:</b> @oElemento.Id<br />
+                                        <b>Nombre:</b> @oElemento.Nombre<br />
+                                        <b>Correo:</b> @oElemento.Correo<br />
+                                        <b>Fecha de nacimiento:</b> @oElemento.Fecha_Nacimiento<br />
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                        <a class="btn btn-danger" href="~/Tabla/Eliminar/@oElemento.Id">Eliminar</a>
+                                    </div>
+
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div>
+                    </td>
                 </tr>
             }
         </table>
     </div>
 </div>
+
+
 
