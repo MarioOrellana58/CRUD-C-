@@ -67,5 +67,69 @@ namespace MVCCRUD.Controllers
                 throw new Exception(ex.Message);
             }
         }
+
+
+        public ActionResult Editar(int Id)
+        {
+            TableViewModel model;
+            using(var db = new CrudEntities())
+            {
+                var oRegistro = db.tablas.Find(Id);
+                model = new TableViewModel()
+                {
+                    Id = oRegistro.id,
+                    Nombre = oRegistro.nombre,
+                    Correo = oRegistro.correo,
+                    Fecha_Nacimiento = (DateTime)oRegistro.fecha_nacimiento
+                };
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Editar(TableViewModel model)
+        {
+            try
+            {
+                if (ModelState.IsValid)//validar los formatos en los data annotations
+                {
+                    using (var db = new CrudEntities())
+                    {
+                        var oRegistro = db.tablas.Find(model.Id);
+                        
+                        oRegistro.nombre = model.Nombre;
+                        oRegistro.correo = model.Correo;
+                        oRegistro.fecha_nacimiento = model.Fecha_Nacimiento;
+
+
+                        db.Entry(oRegistro).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
+                    }
+
+                    return Redirect("~/Tabla");
+                }
+
+                return View(model);
+
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Eliminar(int Id)
+        {            
+            using (var db = new CrudEntities())
+            {                
+                var oRegistro = db.tablas.Find(Id);
+                db.tablas.Remove(oRegistro);
+                db.SaveChanges();
+            }
+
+            return Redirect("~/Tabla");
+        }
     }    
 }
