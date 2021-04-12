@@ -33,8 +33,9 @@
                     <td>@oElemento.Fecha_Nacimiento</td>
                     <td>
                         <a class="btn btn-default" href="~/Tabla/Editar/@oElemento.Id">Editar</a>
-                        <a data-toggle="modal" href="#myModal" class="btn btn-danger">Eliminar</a> 
-                        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
+                        <a data-toggle="modal" href="#myModal-@oElemento.Id" class="btn btn-danger">Eliminar</a> 
+
+                        <div id="myModal-@oElemento.Id" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
 
